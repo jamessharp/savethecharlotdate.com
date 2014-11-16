@@ -1,4 +1,66 @@
 @import "normalize.less";
+@import "foundation.less";
 
-@import "background.less";
-@import "parallax.less";
+.fancy-text {
+  font-family: 'Antic Didone', 'serif';
+}
+
+.large {
+  font-size: 2.5em;
+}
+
+.very-large {
+  font-size: 3em;
+}
+
+.background-image(@image) {
+  background: url(@image) no-repeat center center;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=@image, sizingMethod='scale');
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='@{image}', sizingMethod='scale')";
+}
+
+.background-1 {
+  .background-image('../images/photo3.jpg');
+}
+
+.background-2 {
+  .background-image('../images/IMG_0249.JPG')
+}
+
+.background-3 {
+  .background-image('../images/IMG_1448.JPG')
+}
+
+.background-4 {
+  .background-image('../images/IMG_1502.JPG')
+}
+
+.background {
+  width: 100%;
+  min-height: 100%;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  body & h1 {
+    color: #fff;
+    text-shadow: 0 2px 1px #333;
+  }
+}
+
+body .muted {
+  color: #666;
+}
+
+.text-block {
+  color: #333;
+  // text-shadow: 0 2px 1px #000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  box-shadow: 0 2px 1px #000;
+}
