@@ -1,6 +1,11 @@
 @import "normalize.less";
 @import "foundation.less";
 
+body, html, main {
+  height: 100%;
+  min-height: 100%;
+}
+
 .fancy-text {
   font-family: 'Antic Didone', 'serif';
 }
@@ -13,8 +18,17 @@
   font-size: 3em;
 }
 
+#preload {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .background-image(@image) {
-  background: url(@image) no-repeat center center;
+  background-image: url(@image);
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=@image, sizingMethod='scale');
   -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='@{image}', sizingMethod='scale')";
 }
@@ -36,17 +50,40 @@
 }
 
 .background {
-  width: 100%;
-  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
   body & h1 {
     color: #fff;
     text-shadow: 0 2px 1px #333;
+  }
+}
+
+section {
+  opacity: 0;
+}
+
+.loaded section {
+  opacity: 1;
+}
+
+.section {
+  position: relative;
+
+  &.large-section {
+    height: 150%;
   }
 }
 
@@ -61,6 +98,16 @@ body .muted {
   margin-bottom: 20px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
-  box-shadow: 0 2px 1px #000;
+  // border-radius: 5px;
+  // box-shadow: 0 2px 1px #000;
+}
+
+.page-title {
+  font-family: 'Antic Didone', 'serif';
+  text-align: center;
+  margin-top: 20px;
+
+  h1 {
+    font-family: 'Antic Didone', 'serif';
+  }
 }
