@@ -1,0 +1,55 @@
+.plan-overlay {
+  height: 400px;
+}
+
+.plan-container {
+  position: relative;
+}
+
+.day {
+  opacity: 0;
+
+  &.showing {
+    .transition(opacity 0.2s ease-in);
+    opacity: 1;
+  }
+
+  .day-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .day-description {
+    text-align: center;
+    width: 20%;
+
+    &.party {
+      font-size: 40px;
+      line-height: 55px;
+      font-family: 'Bad Script';
+
+      .firework {
+        margin-top: -40px;
+        margin-bottom: -20px;
+      }
+
+      .firework-right {
+        float: right;
+      }
+
+      .firework-left {
+        float: left;
+      }
+    }
+  }
+}
+
+canvas#plan-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  width: 100%;
+}
