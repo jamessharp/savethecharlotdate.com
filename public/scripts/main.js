@@ -1,9 +1,11 @@
-(function($, document, skrollr) {
+(function($, document, skrollr, angular) {
   var $window = $(window);
   var $section = $('.section');
   var $body = $('body');
   var $planContainer = $('#page-plan .plan-container');
   var _s;
+
+  $section.css('min-height', $window.height());
 
   $body.imagesLoaded(function() {
     $body.removeClass('loading').addClass('loaded');
@@ -130,8 +132,108 @@
         }  
       }
     }
-
-    
   }
 
-})(jQuery, document, skrollr);
+  angular.module('stcd', ['firebase'])
+    .factory('Auth', [
+      '$firebaseAuth',
+      function($firebaseAuth) {
+        var ref = new Firebase("https://crackling-inferno-9786.firebaseio.com");
+        return $firebaseAuth(ref);
+      }
+    ])
+    .factory('RSVP', [
+      '$firebase',
+      function($firebase) {
+        var ref = new Firebase("https://crackling-inferno-9786.firebaseio.com/");
+
+        function emailToId(email) {
+          return email.replace(/\./g, ',');
+        }
+
+        return function(email, name, attending, reserve, songs) {
+          
+          var userRef = ref.child('/users/' + emailToId(email));
+
+          var sync = $firebase(userRef);
+          return sync.$update({
+            name: name,
+            email: email,
+            attending: attending,
+            reserveYurt: reserve,
+            songs: songs
+          });
+        };
+      }
+    ])
+    .controller('StcdController', [
+      '$q',
+      'Auth',
+      'RSVP',
+      function($q, Auth, RSVP) {
+
+        var self = this;
+      
+        
+        this.fbAuth =  fbAuth;
+        this.anonAuth = anonAuth;
+        this.user = Auth.$getAuth();
+        this.auth = Auth;
+        this.rsvp = rsvp;
+
+        this.attending = 'yes';
+        this.reserveYurt = false;
+        this.username = '';
+        this.email = '';
+
+        Auth.$onAuth(function() {
+          self.user = Auth.$getAuth();  
+        });
+
+        function fbAuth() {
+
+          var props = {scope: 'email'};
+
+          Auth.$authWithOAuthPopup('facebook', props).catch(function(error) {
+            if (error.code === 'TRANSPORT_UNAVAILABLE') {
+              return Auth.$authWithOAuthRedirect('facebook', props);
+            } else {
+              return $q.reject(error);
+            }
+          }).catch(function(err) {
+            console.error(err);
+          });
+          
+
+        }
+
+        function anonAuth() {
+          Auth.$authAnonymously({remember: 'sessionOnly'}).catch(function(err) {
+            console.error(err);
+          });
+        }
+
+        function rsvp() {
+          var name = self.user.facebook ? self.user.facebook.displayName : self.userName;
+          var email = self.user.facebook ? self.user.facebook.email : self.email;
+
+          var reserve = self.reserveYurt;
+          var attending = self.attending === 'yes';
+          var songs = self.songs;
+
+          if (!(name && email)) {
+            self.nameErr = !name;
+            self.emailErr = !email;
+            return;
+          }
+
+          self.rsvping = true;
+          RSVP(email, name, attending, reserve, songs).then(function() {
+            self.rsvping = false;
+            self.rsvped = true;
+          });
+        }
+      }
+    ]);
+
+})(jQuery, document, skrollr, angular);
