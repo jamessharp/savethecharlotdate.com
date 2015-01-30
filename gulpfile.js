@@ -3,6 +3,7 @@ var path = require('path');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var less = require('less');
+var jade = require('gulp-jade');
 var es = require('event-stream');
 var _ = require('lodash');
 
@@ -50,12 +51,19 @@ function gulpLess(options) {
   return es.map(transform);
 }
 
+gulp.task('jade', function() {
+  return gulp.src('views/**/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('public/'));
+});
+
 gulp.task('less', function() {
   return gulp.src('styles/stcd.less')
     .pipe(gulpLess())
     .pipe(gulp.dest('public/styles'));
 });
 
-gulp.task('watch', ['less'], function() {
+gulp.task('watch', ['less', 'jade'], function() {
   gulp.watch('styles/**/*.less', ['less']);
+  gulp.watch('views/**/*.jade', ['jade']);
 });

@@ -1,13 +1,6 @@
-.plan-overlay {
-  height: 400px;
-}
-
-.plan-container {
-  position: relative;
-}
-
 .day {
-  opacity: 0;
+
+  padding-bottom: 20px;
 
   &.showing {
     .transition(opacity 0.2s ease-in);
@@ -18,18 +11,20 @@
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+    padding-top: 20px;
   }
 
   .day-description {
     text-align: center;
-    width: 20%;
 
     &.party {
       font-size: 40px;
       line-height: 55px;
+      padding-top: 20px;
       font-family: 'Bad Script';
 
       .firework {
+        display: none;
         margin-top: -40px;
         margin-bottom: -20px;
       }
@@ -50,6 +45,40 @@ canvas#plan-canvas {
   top: 0;
   left: 0;
   right: 0;
-  height: 400px;
+  height: 100%;
   width: 100%;
+}
+
+@media only screen and (min-width: 40em) {
+  .plan-container {
+    position: relative;
+  }
+
+  .plan-overlay {
+    height: 400px;
+  }
+
+  .day {
+    opacity: 0;
+
+    .day-description {
+      width: 20%;
+      padding: 40px 0;
+      
+      &.party {
+
+        padding: 40px 0;
+
+        .firework {
+          display: none;
+        }
+      }
+    }
+
+    .day-title {
+      padding-top: 0px;
+    }
+
+    padding-bottom: 0;
+  }
 }
