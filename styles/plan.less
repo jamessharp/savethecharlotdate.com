@@ -36,8 +36,25 @@
       .firework-left {
         float: left;
       }
+
+      .small {
+        font-family: @font;
+        font-size: 14px;
+        line-height: 20px;
+      }
     }
   }
+}
+
+#time-to-go {
+
+  &.showing {
+    .transition(opacity 0.2s ease-in);
+    opacity: 1;
+  }
+
+  padding-top: 20px;
+  text-align: center;
 }
 
 canvas#plan-canvas {
@@ -56,6 +73,10 @@ canvas#plan-canvas {
 
   .plan-overlay {
     height: 400px;
+  }
+
+  #time-to-go {
+    opacity: 0;
   }
 
   .day {

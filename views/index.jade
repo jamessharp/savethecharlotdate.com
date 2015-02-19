@@ -62,7 +62,7 @@ html.no-js
 
         .row
           .small-12.columns
-            .text-block.plan-container(data-50-top="opacity: 1", data-top="opacity: 1", data-bottom-bottom="opacity: 1", data-bottom-top="opacity: 0", data-top-bottom="opacity: 0", data-anchor-target="#page-plan", data-emit-events)
+            .text-block.plan-container(data-50-top="opacity: 1", data-top="opacity: 1", data-bottom-bottom="opacity: 1", data-bottom-top="opacity: 0", data-top-bottom="opacity: 0", data-anchor-target="#page-plan", data-emit-events, ng-controller="PartyController as party")
               canvas.show-for-medium-up#plan-canvas(width="960", height="440")
               .plan-overlay
                 #plan-friday.day
@@ -106,8 +106,9 @@ html.no-js
                     img.firework(src="/images/firework.gif", width="64px", height="64px;")  
                     //- img.firework-left.firework(src="/images/firework.gif", width="64px", height="64px;")   
                     | TIME!
-                    br
+                    div.small Dress: Black Tie
                     img(src="/images/champagne-glass-bubbles-md.png", width="64px", height="64px;")
+
                 #plan-sunday.day
                   .show-for-medium-up
                     span.day-title DIMANCHE
@@ -121,6 +122,15 @@ html.no-js
                     br
                     img(src="/images/plane-depart.png", width="64px", height="64px")
               .clearfix
+              #time-to-go
+                ng-pluralize(count="party.timeUntilParty.days", when="{one: '1 day', other: '{} days'}")
+                | ,&nbsp;
+                ng-pluralize(count="party.timeUntilParty.hours", when="{one: '1 hour', other: '{} hours'}")
+                | ,&nbsp;
+                ng-pluralize(count="party.timeUntilParty.minutes", when="{one: '1 minute', other: '{} minutes'}")
+                | ,&nbsp;
+                ng-pluralize(count="party.timeUntilParty.seconds", when="{one: '1 second', other: '{} seconds'}")
+                | &nbsp;to go!
 
         .next-page.glyphicons 
           a(href="#page-directions") &#xe602;

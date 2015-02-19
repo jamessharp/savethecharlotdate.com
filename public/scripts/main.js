@@ -11,6 +11,7 @@
     var _maxBgSize = [];
     var _canvasAnimReq;
     var _lastWindowWidth = $window.width();
+    var partyTime = new Date(1468080000000);
 
     $.cloudinary.config({cloud_name: 'savethecharlotdate'});
 
@@ -232,6 +233,7 @@
       var _lastP = [0, canvas.height * canvYStart];
       var _lastDrawStart = 0;
       var maxGap = minanilength * dash/canvas.width;
+      var timeToGoEl = $('#time-to-go');
 
       _canvasAnimReq = requestAnimationFrame(doDraw);
 
@@ -263,6 +265,7 @@
         maybeAddPoint(3 * Math.PI/2, 'saturday');
         maybeAddPoint(5 * Math.PI/2, 'party');
         maybeAddPoint(7 * Math.PI/2, 'sunday');
+        maybeAddTimeToGo(4 * Math.PI);
 
         _lastP = [x, y];
 
@@ -270,7 +273,14 @@
           _canvasAnimReq = requestAnimationFrame(doDraw);
         } else {
           _lastTick = undefined;
-        }  
+        }
+
+        function maybeAddTimeToGo(point) {
+          var canvPoint = (canvas.width/(4*Math.PI)) * point;
+          if ((_lastP[0] < canvPoint) && (x >= canvPoint)) {
+            timeToGoEl.addClass('showing');
+          }
+        }
 
         function maybeAddPoint(point, day) {
           var canvPoint = (canvas.width/(4*Math.PI)) * point;
@@ -284,7 +294,6 @@
 
             var realX = (canvas.offsetWidth/(4*Math.PI)) * point;
             var realY = (canvas.offsetHeight/canvas.height) * yval;
-            console.log('offset height', canvas.offsetHeight, yval, canvas.height);
 
             var dayEl = $('#plan-' + day);
 
@@ -358,6 +367,29 @@
 
             return sync.$update(data);
           };
+        }
+      ])
+      .controller('PartyController', [
+        '$timeout',
+        function($timeout) {
+          var self = this;
+          timeUntilParty();
+
+          function timeUntilParty() {
+            var ms = partyTime - Date.now();
+            var seconds = Math.floor(ms/1000) % 60;
+            var minutes = Math.floor(ms/(60 * 1000)) % 60;
+            var hours = Math.floor(ms/(60 * 60 * 1000)) % 24;
+            var days = Math.floor(ms/(24 * 60 * 60 * 1000));
+
+            self.timeUntilParty = {
+              days: days,
+              hours: hours, 
+              minutes: minutes,
+              seconds: seconds
+            };
+            $timeout(timeUntilParty, 1000);
+          }
         }
       ])
       .controller('StcdController', [
