@@ -40,9 +40,9 @@
 
     function init(clearCanvas) {
       if (clearCanvas) {
-        clearPlanCanvas();  
+        clearPlanCanvas();
       }
-      
+
       adjustWindow(function() {
 
         maybeDrawPlan();
@@ -50,7 +50,7 @@
         var bgImg = bgImage(0);
         $preload.append(bgImg);
         $preload.imagesLoaded(function() {
-          var imgSrc = bgImg.get(0).src; 
+          var imgSrc = bgImg.get(0).src;
           bgLoaded(0, imgSrc);
 
           var imgs = [imgSrc];
@@ -128,9 +128,9 @@
     }
 
     function maybeDrawPlan() {
-      var val = $planContainer.offset().top + 
-                $planContainer.height() - 
-                $window.scrollTop() - 
+      var val = $planContainer.offset().top +
+                $planContainer.height() -
+                $window.scrollTop() -
                 $window.height();
 
       // Will be < 0 if the bottom of the plan container is in view
@@ -190,7 +190,7 @@
           callback();
         }
       });
-      
+
     }
 
     function clearPlanCanvas() {
@@ -209,7 +209,7 @@
       _canvasDrawn = false;
     }
 
-    function drawPlanCanvas() {    
+    function drawPlanCanvas() {
       if (_canvasDrawn) {
         return;
       }
@@ -253,14 +253,14 @@
         if (_lastP[0] - _lastDrawStart <= dash) {
           ctxt.moveTo(_lastP[0], _lastP[1]);
           ctxt.lineTo(x, y);
-          ctxt.stroke();  
+          ctxt.stroke();
         } else if (_lastP[0] - _lastDrawStart >= 2*dash) {
           ctxt.moveTo(_lastP[0], _lastP[1]);
           ctxt.lineTo(x, y);
-          ctxt.stroke();  
+          ctxt.stroke();
           _lastDrawStart = _lastP[0];
         }
-        
+
         maybeAddPoint(Math.PI/2, 'friday');
         maybeAddPoint(3 * Math.PI/2, 'saturday');
         maybeAddPoint(5 * Math.PI/2, 'party');
@@ -326,7 +326,7 @@
               }
               $this.css({position: 'absolute', top: top, left: realX - $this.width()/2});
             });
-          }  
+          }
         }
       }
     }
@@ -349,7 +349,7 @@
           }
 
           return function(email, name, attending, reserve, songs) {
-            
+
             var userRef = ref.child('/users/' + emailToId(email));
 
             var sync = $firebase(userRef);
@@ -384,7 +384,7 @@
 
             self.timeUntilParty = {
               days: days,
-              hours: hours, 
+              hours: hours,
               minutes: minutes,
               seconds: seconds
             };
@@ -399,8 +399,8 @@
         function($q, Auth, RSVP) {
 
           var self = this;
-        
-          
+
+
           this.fbAuth =  fbAuth;
           this.anonAuth = anonAuth;
           this.user = Auth.$getAuth();
@@ -413,7 +413,7 @@
           this.email = '';
 
           Auth.$onAuth(function() {
-            self.user = Auth.$getAuth();  
+            self.user = Auth.$getAuth();
           });
 
           function fbAuth() {
@@ -429,7 +429,7 @@
             }).catch(function(err) {
               console.error(err);
             });
-            
+
 
           }
 
