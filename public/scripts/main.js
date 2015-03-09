@@ -32,7 +32,6 @@
     $window.on('resize', function() {
       // Redo the canvas if the width of the window has changed
       var newWidth = $window.width();
-      console.log(newWidth, _lastWindowWidth);
       var clearCanvas = (newWidth !== _lastWindowWidth);
       _lastWindowWidth = newWidth;
       init(clearCanvas);
@@ -154,7 +153,6 @@
           },
           keyframe: function(element, name, direction) {
             if ($planContainer.is(element)) {
-              console.log(name);
               if (name === 'data50Top') {
                 drawPlanCanvas();
               }
