@@ -32,6 +32,8 @@ html.no-js
           a(href="#page-accomodation") Where to stay
         li
           a(href="#page-rsvp") RSVP
+        li
+          a(href="#page-extra-info") Extra info
 
     main#skrollr-body(ng-controller="StcdController as stcd")
       section#page-invite.section
@@ -91,9 +93,6 @@ html.no-js
                     img(src="/images/wave.svg", width="80px", height="80px")
                     br
                     | Rest, relaxation and late arrivals
-                    br
-                    br
-                    | J&amp;J go off and sign on the dotted line at the Mairie
                 #plan-party.day
                   .show-for-medium-up
                     span.day-title SAMEDI
@@ -105,7 +104,7 @@ html.no-js
                     img.firework(src="/images/firework.gif", width="64px", height="64px;")  
                     //- img.firework-left.firework(src="/images/firework.gif", width="64px", height="64px;")   
                     | TIME!
-                    div.small Dress: Black Tie
+                    br
                     img(src="/images/champagne-glass-bubbles-md.png", width="64px", height="64px;")
 
                 #plan-sunday.day
@@ -284,16 +283,53 @@ html.no-js
                     button.button.small.secondary(ng-show="stcd.rsvping") Sending...
                     button.button.small.secondary(ng-show="stcd.rsvped") RSVP'd - thanks!
                 
-                .row
-                  .small-12.columns
-                    asside.ps
-                      | One final P.S. about presents. Your presence will be enough of a present. Therefore please don't feel like you have to get us anything at all.
-                
                 //- .row
                   .small-12.columns
                     label Where is Charlot anyway?
                     a(href="https://www.google.co.uk/maps/place/44°37'55.3%22N+0°04'57.4%22E")
                       img(src="https://maps.googleapis.com/maps/api/staticmap?center=44.635685,0.081953&zoom=8&maptype=roadmap&markers=color:blue%7C44.632032,0.082618&size=600x200")
+      
+      section#page-extra-info.section
+        .background(data-top-top="background-position: 50% 50%;", data-bottom-bottom="background-position: 50% 50%;", data-top-bottom="background-position: 50% 60%;", data-bottom-top="background-position: 50% 40%;", data-anchor-target="#page-extra-info")
+        .row(data-50-top="opacity: 1; margin-top: 0px;", data-top="opacity: 1; margin-top: 0px;", data-bottom-bottom="opacity: 1; margin-top: 0px;", data-bottom-top="opacity: 0; margin-top: 20px;", data-top-bottom="opacity: 0; margin-top: -1000px;", data-anchor-target="#page-extra-info")
+          .small-12.columns
+            .page-title
+              h1 Extra Info
+        .row
+          .small-12.medium-8.columns.medium-centered
+            .text-block(data-50-top="opacity: 1", data-top="opacity: 1", data-bottom-bottom="opacity: 1", data-bottom-top="opacity: 0", data-top-bottom="opacity: 0", data-anchor-target="#page-extra-info")
+              .row
+                .small-12.columns
+                  .text-center
+                    h3 The Party
+                  p This isn't a traditional wedding. Indeed, there isn't going to be a wedding ceremony at all. We will have signed on the dotted line at some point but this day is really just a chance to celebrate with a big party for all our family and friends.
+                  p We understand that it's a long way to come for just a party (with no "I do's") so if you're unable to join us on this occasion we'd love to see you for more celebrations in the UK instead.
+              .row
+                .small-12.columns
+                  .text-center
+                    h3 Dress code
+                  p The dress code for the party on Saturday evening is&nbsp;
+                    strong Black Tie
+                    | &nbsp;(no hats/morning suits). Bear in mind that there may be sunshine, lawns and pebbles to deal with - feel free to adapt accordingly.
+                  p Also bring your swimming stuff if you fancy a dip in the pool at any point during the day/night.
+                  
+              .row
+                .small-12.columns
+                  .text-center
+                    h3 Presents
+                  p Your presence will be enough of a present. Please don't feel like you have to get us anything at all.
+                  
+              .row
+                .small-12.columns
+                  .text-center
+                    h3 What is Charlot?
+                  p Charlot is the name of the house you see in all these photos. It has a pool, lots of open land and is really rather glorious.
+                  
+              .row
+                .small-12.columns
+                  .text-center
+                    h3 I don't understand!
+                  p If you have any questions just ask and we'll be happy to help.
 
     #preload
 

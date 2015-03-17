@@ -20,7 +20,8 @@
       'IMG_1467_n6sxjg',
       'IMG_1448_ppvdih',
       'IMG_1502_azsfky',
-      'IMG_0249_p6cztd'
+      'IMG_0249_p6cztd',
+      'IMG_1444_vn3wxm'
     ];
 
     $section.css('min-height', $window.height());
