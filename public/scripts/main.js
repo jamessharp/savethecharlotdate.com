@@ -339,8 +339,8 @@
         }
       ])
       .factory('RSVP', [
-        '$firebase',
-        function($firebase) {
+        '$firebaseObject',
+        function($firebaseObject) {
           var ref = new Firebase("https://crackling-inferno-9786.firebaseio.com/");
 
           function emailToId(email) {
@@ -350,21 +350,18 @@
           return function(email, name, attending, reserve, songs) {
 
             var userRef = ref.child('/users/' + emailToId(email));
+            var userObj = $firebaseObject(userRef);
 
-            var sync = $firebase(userRef);
-
-            var data = {
-              name: name,
-              email: email,
-              attending: attending,
-              reserveYurt: reserve
-            };
+            userObj.name = name;
+            userObj.email = email;
+            userObj.attending = attending;
+            userObj.reserveYurt = reserve;
 
             if (songs) {
-              data.songs = songs;
+              userObj.songs = songs;
             }
 
-            return sync.$update(data);
+            return userObj.$save();
           };
         }
       ])
