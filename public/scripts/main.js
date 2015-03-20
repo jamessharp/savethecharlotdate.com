@@ -347,7 +347,7 @@
             return email.replace(/\./g, ',');
           }
 
-          return function(email, name, attending, reserve, songs) {
+          return function(email, name, attending, reserve, songs, comments) {
 
             var userRef = ref.child('/users/' + emailToId(email));
             var userObj = $firebaseObject(userRef);
@@ -359,6 +359,10 @@
 
             if (songs) {
               userObj.songs = songs;
+            }
+
+            if (comments) {
+              userObj.comments = comments;
             }
 
             return userObj.$save();
@@ -446,6 +450,7 @@
             var reserve = self.reserveYurt;
             var attending = self.attending === 'yes';
             var songs = self.songs;
+            var comments = self.comments;
 
             if (!(name && email)) {
               self.nameErr = !name;
@@ -454,7 +459,7 @@
             }
 
             self.rsvping = true;
-            RSVP(email, name, attending, reserve, songs).then(function() {
+            RSVP(email, name, attending, reserve, songs, comments).then(function() {
               self.rsvping = false;
               self.rsvped = true;
             });
